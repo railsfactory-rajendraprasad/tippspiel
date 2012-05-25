@@ -2,7 +2,7 @@
   <div class="secondary-navigation">
     <ul class="wat-cf">
       <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", tipps_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_tipp_path %></li>
+      <li><%= link_to("#{t("web-app-theme.new", :default => "New")}", new_tipp_path) if current_user.is_superuser? %></li>
     </ul>
   </div>          
   <div class="content">          
@@ -11,28 +11,18 @@
       <table class="table">
         <tr>             
           <th class="first">ID</th>
-                    <th>
-            <%= t("activerecord.attributes.tipp.user_id", :default => t("activerecord.labels.user_id", :default => "User_id")) %>
-          </th>
-                    <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
-          <th class="last">&nbsp;</th>
+          <th>Spiel</th>
+          <th>Spieler</th>
+          <th>Tipp</th>
+          <th class="last"></th>
         </tr>
         <% @tipps.each do |tipp| -%>
         <tr class="<%= cycle("odd", "even") %>">
-          <td>
-            <%= tipp.id %>
-          </td>
-                    <td>
-            <%= link_to tipp.user_id, tipp_path(tipp) %>
-          </td>
-                    <td>
-            <%= tipp.created_at %>
-          </td>
-          <td class="last">
-            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", tipp_path(tipp) %> |
-            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_tipp_path(tipp) %> |
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", tipp_path(tipp), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-          </td>
+          <td><%= tipp.id %></td>
+          <td><%= link_to tipp.spiel.versus, spiel_path(tipp.spiel) %></td>
+	  <td><%= link_to tipp.user.name, tipp_path(tipp) %></td>
+	  <td><%= tipp.small %></td>
+          <td class="last"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_tipp_path(tipp) if current_user.id == tipp.user_id  %></td>
         </tr>          
         <% end -%>
       </table>

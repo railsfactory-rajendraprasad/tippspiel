@@ -1,28 +1,30 @@
-
-  <div class="group">
-    <%= f.label :user_id, t("activerecord.attributes.tipp.user_id", :default => "User"), :class => :label %>
-    <%= f.number_field :user_id, :class => 'number_field' %>
-    <span class="description">Ex: a simple text</span>
+<div class='columns wat-cf'>
+  <div class='columns left'>
+    <div class='group'>
+      <%= f.label @tipp.spiel.team_a, :class=>'label' %>
+      <%= image_tag @tipp.spiel.team_a + '.png' %>
+      <%= f.hidden_field :spiel_id %>
+    </div>
+    
+    <div class="group">
+      <%= f.label :team_a_result, t("activerecord.attributes.tipp.team_a_result", :default => "Team a result"), :class => :label %>
+      <%= f.number_field :team_a_result, :class => 'number_field', :size=>4 %>
+    </div>
   </div>
 
-  <div class="group">
-    <%= f.label :spiel_id, t("activerecord.attributes.tipp.spiel_id", :default => "Spiel"), :class => :label %>
-    <%= f.number_field :spiel_id, :class => 'number_field' %>
-    <span class="description">Ex: a simple text</span>
+  <div class='columns right'>
+    <div class='group'>
+      <%= f.label @tipp.spiel.team_b, :class=>'label' %>
+      <%= image_tag @tipp.spiel.team_b + '.png' %>
+    </div>
+    
+    <div class='group'>
+      <%= f.label :team_b_result, t("activerecord.attributes.tipp.team_b_result", :default => "Team b result"), :class => :label %>
+      <%= f.number_field :team_b_result, :class => 'number_field', :size=>4 %>
+    </div>
   </div>
+</div>
 
-  <div class="group">
-    <%= f.label :team_a_result, t("activerecord.attributes.tipp.team_a_result", :default => "Team a result"), :class => :label %>
-    <%= f.number_field :team_a_result, :class => 'number_field' %>
-    <span class="description">Ex: a simple text</span>
-  </div>
-
-  <div class="group">
-    <%= f.label :team_b_result, t("activerecord.attributes.tipp.team_b_result", :default => "Team b result"), :class => :label %>
-    <%= f.number_field :team_b_result, :class => 'number_field' %>
-    <span class="description">Ex: a simple text</span>
-  </div>
-        
 <div class="group navform wat-cf">
   <button class="button" type="submit">
     <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}") %> <%= t("web-app-theme.save", :default => "Save") %>

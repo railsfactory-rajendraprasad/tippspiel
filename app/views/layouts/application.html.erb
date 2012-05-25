@@ -9,12 +9,12 @@
 <body>
   <div id="container">
     <div id="header">
-      <h1><a href="/">Web App</a></h1>
+      <h1><a href="/"><%= t(:headline)%></a></h1>
       <div id="user-navigation">
         <ul class="wat-cf">
-          <li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
-          <li><a href="#"><%= t("web-app-theme.settings", :default => "Settings") %></a></li>
-          <li><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
+	  <li>angemeldet als: <%= current_user.name %></li>
+          <li><%= link_to(t("web-app-theme.settings", :default => "Settings"), edit_user_registration_path) %></a></li>
+          <li><%= link_to(t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path, :method=>:delete, :class=>'logout') %></li>
         </ul>
       </div>
       <div id="main-navigation">
@@ -33,12 +33,20 @@
         <%= yield %>
         <div id="footer">
           <div class="block">
-            <p>Copyright &copy; <%= Time.now.year %> Web App.</p>
+            <p>Copyright &copy; <%= Time.now.year %> <%= t :author %></p>
           </div>
         </div>
       </div>
       <div id="sidebar">
         <%= yield :sidebar %>
+        <div class="block">
+	  <h3>Links</h3>
+	    <ul class="navigation">
+	    <li><%= link_to(t('links.spielplan'), spiels_path) %></li>
+	    <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+	    <li><%= link_to(t('links.teams'), teams_path) %></li>
+	  </ul>
+	</div>
       </div>
     </div>
   </div>
