@@ -10,6 +10,7 @@ gem 'will_paginate', '~>3.0.pre2'
 gem 'devise'
 
 gem 'json'
+gem 'jquery-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,7 +26,7 @@ end
 
 group :development, :test do
   gem 'webrat'
-  gem 'web-app-theme'
+  gem 'web-app-theme', :git=>'git://github.com/pilu/web-app-theme.git'
 end
 
 gem 'prawn'

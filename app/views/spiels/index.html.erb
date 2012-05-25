@@ -1,21 +1,41 @@
-<h1>Listing spiels</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", spiels_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_spiel_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Spiels</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
+          <th><%= t("activerecord.attributes.spiel.state", :default => t("activerecord.labels.state", :default => "Status")) %></th>
+          <th><%= t("activerecord.attributes.spiel.team_a", :default => t("activerecord.labels.team_a", :default => "Mannschaft A")) %></th>
+          <th><%= t("activerecord.attributes.spiel.team_b", :default => t("activerecord.labels.team_b", :default => "Mannschaft B")) %></th>
+          <th class="last"></th>
+        </tr>
+        <% @spiels.each do |spiel| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td><%= spiel.id %></td>
+	  <td><%= link_to spiel.start_at, spiel_path(spiel) %></td>
+	  <td><%= spiel.team_a %></td>
+	  <td><%= spiel.team_b %></td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_spiel_path(spiel) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", spiel_path(spiel), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @spiels.each do |spiel| %>
-  <tr>
-    <td><%= link_to 'Show', spiel %></td>
-    <td><%= link_to 'Edit', edit_spiel_path(spiel) %></td>
-    <td><%= link_to 'Destroy', spiel, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Spiel', new_spiel_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

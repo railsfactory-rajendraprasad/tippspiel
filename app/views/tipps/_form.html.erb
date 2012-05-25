@@ -1,17 +1,32 @@
-<%= form_for(@tipp) do |f| %>
-  <% if @tipp.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tipp.errors.count, "error") %> prohibited this tipp from being saved:</h2>
 
-      <ul>
-      <% @tipp.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="group">
+    <%= f.label :user_id, t("activerecord.attributes.tipp.user_id", :default => "User"), :class => :label %>
+    <%= f.number_field :user_id, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
   </div>
-<% end %>
+
+  <div class="group">
+    <%= f.label :spiel_id, t("activerecord.attributes.tipp.spiel_id", :default => "Spiel"), :class => :label %>
+    <%= f.number_field :spiel_id, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+
+  <div class="group">
+    <%= f.label :team_a_result, t("activerecord.attributes.tipp.team_a_result", :default => "Team a result"), :class => :label %>
+    <%= f.number_field :team_a_result, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+
+  <div class="group">
+    <%= f.label :team_b_result, t("activerecord.attributes.tipp.team_b_result", :default => "Team b result"), :class => :label %>
+    <%= f.number_field :team_b_result, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+        
+<div class="group navform wat-cf">
+  <button class="button" type="submit">
+    <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}") %> <%= t("web-app-theme.save", :default => "Save") %>
+  </button>
+  <span class="text_button_padding"><%= t("web-app-theme.or", :default => "or") %></span>
+	<%= link_to t("web-app-theme.cancel", :default => "Cancel"), tipps_path, :class => "text_button_padding link_button" %>
+</div>
