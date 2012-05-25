@@ -24,7 +24,7 @@ class TippsController < ApplicationController
   # GET /tipps/new
   # GET /tipps/new.json
   def new
-    @tipp = Tipp.new
+    @tipp = Tipp.new(:spiel_id=>params[:spiel_id], :user_id=>current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +41,7 @@ class TippsController < ApplicationController
   # POST /tipps.json
   def create
     @tipp = Tipp.new(params[:tipp])
+    @tipp.user_id = current_user.id
 
     respond_to do |format|
       if @tipp.save
