@@ -1,0 +1,8 @@
+de:
+  headline: ComCard Tippspiel EM 2012
+  author: Kjarrigan
+  
+  activerecord:
+    attributes:
+      spiel:
+        result: Ergebnis

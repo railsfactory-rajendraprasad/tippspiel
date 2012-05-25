@@ -30,8 +30,8 @@ module ComcardTippspiel
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -52,6 +52,14 @@ module ComcardTippspiel
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    
+    config.to_prepare do
+      Devise::SessionsController.layout "devise"
+      Devise::ConfirmationsController.layout "devise"
+      Devise::UnlocksController.layout "devise"
+      Devise::PasswordsController.layout "devise"
+      Devise::RegistrationsController.layout proc{|ctr| user_signed_in? ? "application" : 'devise'}
+    end
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
