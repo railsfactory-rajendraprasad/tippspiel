@@ -1,0 +1,25 @@
+
+  <div class="group">
+    <%= f.label :spiel_id, t("activerecord.attributes.score.spiel_id", :default => "Spiel"), :class => :label %>
+    <%= f.number_field :spiel_id, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+
+  <div class="group">
+    <%= f.label :user_id, t("activerecord.attributes.score.user_id", :default => "User"), :class => :label %>
+    <%= f.number_field :user_id, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+
+  <div class="group">
+    <%= f.label :score, t("activerecord.attributes.score.score", :default => "Score"), :class => :label %>
+    <%= f.number_field :score, :class => 'number_field' %>
+    <span class="description">Ex: a simple text</span>
+  </div>
+<div class="group navform wat-cf">
+  <button class="button" type="submit">
+    <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}") %> <%= t("web-app-theme.save", :default => "Save") %>
+  </button>
+  <span class="text_button_padding"><%= t("web-app-theme.or", :default => "or") %></span>
+	<%= link_to t("web-app-theme.cancel", :default => "Cancel"), scores_path, :class => "text_button_padding link_button" %>
+</div>
