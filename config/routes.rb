@@ -1,4 +1,6 @@
 ComcardTippspiel::Application.routes.draw do
+  resources :scores
+
   devise_for :users
 
   resources :teams

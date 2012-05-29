@@ -26,7 +26,7 @@ end
 
 group :development, :test do
   gem 'webrat'
-  gem 'web-app-theme', :git=>'git://github.com/pilu/web-app-theme.git'
+  gem 'web-app-theme', :git=>'https://github.com/pilu/web-app-theme.git' # 'https://github.com/pilu/web-app-theme.git'
 end
 
 gem 'prawn'

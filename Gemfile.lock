@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/pilu/web-app-theme.git
+  remote: https://github.com/pilu/web-app-theme.git
   revision: b7310fe5001ed03b965049f293fce3527ae98dae
   specs:
     web-app-theme (0.8.0)
