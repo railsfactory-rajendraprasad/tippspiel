@@ -29,9 +29,11 @@
             <%= team.created_at %>
           </td>
           <td class="last">
+            <% if current_user.is_superuser? -%>
             <%= link_to "#{t("web-app-theme.show", :default => "Show")}", team_path(team) %> |
             <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_team_path(team) %> |
             <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", team_path(team), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <% end -%>
           </td>
         </tr>          
         <% end -%>

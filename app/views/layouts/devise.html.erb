@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Web App</title>
+  <title>ComCard Tippspiel</title>
   <%= stylesheet_link_tag "web_app_theme" %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <div id="container">
+  <div id="container">    
     <div id="box">
+      <h1><%= t(:headline)%></h1>
       <%= yield %>
     </div>
   </div>

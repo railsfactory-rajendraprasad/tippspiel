@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Web App</title>
+  <title>ComCard Tippspiel</title>
   <%= stylesheet_link_tag 'web_app_theme' %>
   <%= javascript_include_tag :application %>
   <%= csrf_meta_tag %>
@@ -12,7 +12,7 @@
       <h1><a href="/"><%= t(:headline)%></a></h1>
       <div id="user-navigation">
         <ul class="wat-cf">
-	  <li>angemeldet als: <%= current_user.name %></li>
+          <li style='color: white'>angemeldet als: <%= current_user.name %></li>
           <li><%= link_to(t("web-app-theme.settings", :default => "Settings"), edit_user_registration_path) %></a></li>
           <li><%= link_to(t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path, :method=>:delete, :class=>'logout') %></li>
         </ul>
@@ -44,6 +44,7 @@
 	    <ul class="navigation">
 	    <li><%= link_to(t('links.spielplan'), spiels_path) %></li>
 	    <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
 	    <li><%= link_to(t('links.teams'), teams_path) %></li>
 	  </ul>
 	</div>
