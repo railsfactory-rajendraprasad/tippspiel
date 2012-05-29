@@ -56,10 +56,18 @@ class SpielsController < ApplicationController
   # PUT /spiels/1
   # PUT /spiels/1.json
   def update
-    @spiel = Spiel.find(params[:id])
-
+    sucess = true
+    Spiel.transaction do
+      @spiel = Spiel.find(params[:id])
+      
+      if params[:spiel][:result]
+        sucess = Score.calculate(params[:id], params[:spiel][:result])
+      end
+      sucess = sucess && @spiel.update_attributes(params[:spiel])
+    end
+    
     respond_to do |format|
-      if @spiel.update_attributes(params[:spiel])
+      if sucess
         format.html { redirect_to @spiel, notice: 'Spiel was successfully updated.' }
         format.json { head :no_content }
       else

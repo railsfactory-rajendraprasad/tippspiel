@@ -1,6 +1,15 @@
 <div class="block">
   <h3>Ticker</h3>
   <div class="content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p><b>Beste TeilnehmerINNEN:</b></br>
+      </br>
+      <% Score.select('user_id, SUM(score) AS total').group('user_id').order('total').each do |score| -%>
+        <i><%= score.user.name %></i> <%= score.total %> Pkt.</br>
+      <% end -%>
+    </p>
+    <p>Es nehmen momentan <%= User.count %>  Spieler teil.</p>
+    <p>Insgesamt wurden <%= Tipp.count %> Tipps abgegeben.</p>
+    <p><b>Goldrichtige Tipps:</b> 0</p>
+    <p><b>Richtige Tipps:</b> 0</p>
   </div>
 </div>

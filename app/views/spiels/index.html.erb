@@ -11,18 +11,18 @@
       <table class="table">
         <tr>             
           <th class="first">Dein Tipp</th>
-          <th><%= t("activerecord.attributes.spiel.state", :default => t("activerecord.labels.state", :default => "Status")) %></th>
+          <th><%= t("activerecord.attributes.spiel.state") %></th>
           <th></th>
-          <th><%= t("activerecord.attributes.spiel.match", :default => t("activerecord.labels.team_a", :default => "Spiel")) %></th>
+          <th><%= t("activerecord.attributes.spiel.match") %></th>
           <th class="last"></th>
         </tr>
         <% @spiels.each do |spiel| -%>
         <tr class="<%= cycle("odd", "even") %>">
           <td><%= link_to_new_or_edit_tipp(current_user.id, spiel.id) %></td>
-	  <td><%= link_to spiel.start_at, spiel_path(spiel) %></td>
-	  <td><%= image_tag spiel.team_a + '.png' %></td>
-	  <td><%= link_to spiel.versus, spiel_path(spiel) %></td>
-	  <td class='last'><%= image_tag spiel.team_b + '.png' %></td>
+          <td><%= link_to((spiel.result.empty? ? l(spiel.start_at) : spiel.result), spiel_path(spiel)) %></td>
+          <td><%= image_tag spiel.team_a + '.png', :style=>'border: 1px solid black' %></td>
+          <td><b><%= link_to spiel.versus, spiel_path(spiel) %></b></td>
+          <td class='last'><%= image_tag spiel.team_b + '.png', :style=>'border: 1px solid black' %></td>
         </tr>          
         <% end -%>
       </table>

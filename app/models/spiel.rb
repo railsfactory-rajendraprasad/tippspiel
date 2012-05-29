@@ -2,6 +2,7 @@
 
 class Spiel < ActiveRecord::Base
   has_many :tipps
+  default_scope :order => 'start_at'
   
   def team_a
     Team.find(self.team_a_id).name
