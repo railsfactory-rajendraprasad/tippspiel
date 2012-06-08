@@ -73,5 +73,14 @@ de:
         rank: Platz
         score: Punkte
         user_id: Spieler
-
-
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              blank: Passwort muss zur bestätigung eingeben werden!
+  devise:
+    forgot_password: Passwort vergessen?
+    change_password: Passwort ändern
+    sign_in: Anmelden
+    

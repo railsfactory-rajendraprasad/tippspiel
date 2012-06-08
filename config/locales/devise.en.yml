@@ -52,6 +52,6 @@ en:
       confirmation_instructions:
         subject: 'Confirmation instructions'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: 'ComCard Tippspiel EM 2012'
       unlock_instructions:
         subject: 'Unlock Instructions'
