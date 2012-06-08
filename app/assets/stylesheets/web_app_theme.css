@@ -7,3 +7,15 @@
  */
 
 /* Write here your css for overriding the theme's rules */
+
+div.block {
+  width: 83%;
+}
+
+#sidebar {
+  width: 15%;
+}
+
+.table.pokal {
+  background: url('Pokal.png') no-repeat center;
+}
