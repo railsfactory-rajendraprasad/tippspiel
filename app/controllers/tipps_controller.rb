@@ -1,8 +1,9 @@
+#Encoding: UTF-8
 class TippsController < ApplicationController
   # GET /tipps
   # GET /tipps.json
   def index
-    @tipps = Tipp.all
+    @tipps = Tipp # 
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +25,7 @@ class TippsController < ApplicationController
   # GET /tipps/new
   # GET /tipps/new.json
   def new
-    @tipp = Tipp.new(:spiel_id=>params[:spiel_id], :user_id=>current_user.id)
+    @tipp = Tipp.new(:spiel_id=>params[:spiel_id], :user_id=>params[:user_id]||current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,17 +36,18 @@ class TippsController < ApplicationController
   # GET /tipps/1/edit
   def edit
     @tipp = Tipp.find(params[:id])
+    deny_access!('Zugriff verweigert! Es ist verboten die Tipps anderer Spieler zu manipulieren!') if ! current_user.id == @tipp.user_id and ! current_user.is_superuser?
   end
 
   # POST /tipps
   # POST /tipps.json
   def create
     @tipp = Tipp.new(params[:tipp])
-    @tipp.user_id = current_user.id
+    @tipp.user_id||= current_user.id
 
     respond_to do |format|
-      if @tipp.save
-        format.html { redirect_to @tipp, notice: 'Tipp was successfully created.' }
+      if ! @tipp.too_late? && @tipp.save
+        format.html { redirect_to @tipp.spiel, notice: 'Tipp was successfully created.' }
         format.json { render json: @tipp, status: :created, location: @tipp }
       else
         format.html { render action: "new" }
@@ -58,10 +60,11 @@ class TippsController < ApplicationController
   # PUT /tipps/1.json
   def update
     @tipp = Tipp.find(params[:id])
-
+    deny_access! unless current_user.id == @tipp.user_id and ! current_user.is_superuser?
+    
     respond_to do |format|
-      if @tipp.update_attributes(params[:tipp])
-        format.html { redirect_to @tipp, notice: 'Tipp was successfully updated.' }
+      if ! @tipp.too_late? && @tipp.update_attributes(params[:tipp])
+        format.html { redirect_to @tipp.spiel, notice: 'Tipp was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

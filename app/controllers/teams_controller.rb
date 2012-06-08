@@ -24,6 +24,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   # GET /teams/new.json
   def new
+    deny_access! unless current_user.is_superuser?
     @team = Team.new
 
     respond_to do |format|
@@ -34,12 +35,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    deny_access! unless current_user.is_superuser?
     @team = Team.find(params[:id])
   end
 
   # POST /teams
   # POST /teams.json
   def create
+    deny_access! unless current_user.is_superuser?
     @team = Team.new(params[:team])
 
     respond_to do |format|
@@ -56,6 +59,7 @@ class TeamsController < ApplicationController
   # PUT /teams/1
   # PUT /teams/1.json
   def update
+    deny_access! unless current_user.is_superuser?
     @team = Team.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +76,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
+    deny_access! unless current_user.is_superuser?
     @team = Team.find(params[:id])
     @team.destroy
 
