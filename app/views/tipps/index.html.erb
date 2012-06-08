@@ -1,36 +1,35 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", tipps_path  %></li>
-      <li><%= link_to("#{t("web-app-theme.new", :default => "New")}", new_tipp_path) if current_user.is_superuser? %></li>
+      <li class="first"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li class="active"><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
     </ul>
   </div>          
   <div class="content">          
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Tipps</h2>
     <div class="inner">
-      <table class="table">
+      <table class="table small">
         <tr>             
-          <th class="first">ID</th>
+          <th class="first">Spiel</th>
+          <% User.where('is_superuser IS FALSE').order('name').all.each do |usr| %><th><span class="rotate"><small><%= nameify(usr.name) %></small></th><% end -%>
           <th>Spiel</th>
-          <th>Spieler</th>
-          <th>Tipp</th>
           <th class="last"></th>
         </tr>
-        <% @tipps.each do |tipp| -%>
+        <% Spiel.order('start_at').all.each do |spiel| -%>
         <tr class="<%= cycle("odd", "even") %>">
-          <td><%= tipp.id %></td>
-          <td><%= link_to tipp.spiel.versus, spiel_path(tipp.spiel) %></td>
-	  <td><%= link_to tipp.user.name, tipp_path(tipp) %></td>
-	  <td><%= tipp.small %></td>
-          <td class="last"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_tipp_path(tipp) if current_user.id == tipp.user_id  %></td>
-        </tr>          
+          <td><%= link_to spiel.versus, spiel_path(spiel) %></td>
+          <% line = {}; @tipps.where('spiel_id = ?', spiel.id).all.each do |ele| line[ele.user_id] = ele end -%>
+          <% User.where('is_superuser IS FALSE').order('name').all.each do |usr| -%>
+            <% txt = (line[usr.id] ? line[usr.id].extra_small : '-:-') -%>
+            <td><%= (current_user.is_superuser? or current_user.can_activate) ? link_to_new_or_edit_tipp(usr.id, spiel.id,'-:-',true)  : txt%></td>
+          <% end -%>
+          <td><%= link_to spiel.versus, spiel_path(spiel) %></td>
+          <td class="last"></td>
+          </tr>          
         <% end -%>
       </table>
-      <div class="actions-bar wat-cf">
-        <div class="actions">
-        </div>
-        
-      </div>
     </div>
   </div>
 </div>

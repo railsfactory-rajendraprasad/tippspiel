@@ -1,7 +1,10 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", spiels_path  %></li>
+      <li class="first active"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
       <li><%= link_to("#{t("web-app-theme.new", :default => "New")}", new_spiel_path) if current_user.is_superuser? %></li>
     </ul>
   </div>          
@@ -18,7 +21,7 @@
         </tr>
         <% @spiels.each do |spiel| -%>
         <tr class="<%= cycle("odd", "even") %>">
-          <td><%= link_to_new_or_edit_tipp(current_user.id, spiel.id) %></td>
+          <td><%= spiel.start_at > (Time.now + (3600 * 2)).utc ? link_to_new_or_edit_tipp(current_user.id, spiel.id) : 'Zu spät' %></td>
           <td><%= link_to((spiel.result.empty? ? l(spiel.start_at) : spiel.result), spiel_path(spiel)) %></td>
           <td><%= image_tag spiel.team_a + '.png', :style=>'border: 1px solid black' %></td>
           <td><b><%= link_to spiel.versus, spiel_path(spiel) %></b></td>

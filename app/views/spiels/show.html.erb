@@ -1,9 +1,11 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", spiels_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_spiel_path %></li>
-      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", spiel_path %></li>
+      <li class="first"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
+      <li><%= link_to("#{t("web-app-theme.new", :default => "New")}", new_spiel_path) if current_user.is_superuser? %></li>
     </ul>
   </div>          
   <div class="content">
@@ -12,25 +14,26 @@
         <p>
           <b><%= @spiel.status %></b>
         </p>
-
         <p>
           <b><%= t("activerecord.attributes.spiel.result", :default => t("activerecord.labels.result", :default => "Result")) %>:</b>
           <%= @spiel.result.empty? ? 'Ausstehend' : @spiel.result %>
         </p>
+        <p>Im <b>Durchschnitt</b> tippen die Teilnehmer auf ein <b>Endergebnis</b> von <%= @spiel.average%> (<%= @spiel.tipps.count %> abgebene Tipps)</p>
     <h4>Abgegebene Tipps</h2>
       <table class='table'>
-	<tr><th class='first'>Spieler</th><th class='last'>Tipp</th></tr>
-	<% @spiel.tipps.each do |blk| %>
-	<tr><td><%= blk.user.name %></th><td><%= blk.small %></td></tr>
-	<% end %>
+        <tr><th class='first'>Spieler</th><th class='last'>Tipp</th></tr>
+        <% @spiel.tipps.each do |blk| %>
+          <tr <%= "style='background-color: lightblue'" if blk.user_id == current_user.id %>><td><%= blk.user ? nameify(blk.user.name) : "gelöschte Person (##{blk.user_id})" %></td><td><%= blk.small %></td></tr>
+        <% end %>
       </table>
-        
-        <% if current_user.is_superuser? %>
+
       <div class="wat-cf">
+        <%= link_to_new_or_edit_tipp(current_user.id, @spiel.id) %> 
+      <% if current_user.is_superuser? %>
         <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_spiel_path(@spiel), :class => "button" %> 
         <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), spiel_path(@spiel), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-      </div>      
       <% end %>
+      </div>      
     </div>
   </div>
 </div>

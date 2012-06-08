@@ -1,25 +1,66 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
+      <li class="active"><%= link_to(t("web-app-theme.settings", :default => "Settings"), edit_user_registration_path) %></li>
+    </ul>
+  </div>          
+  <div class="content">
+  <h2>Benutzereinstellungen anpassen</h2>
+    <div class="inner">
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class=>'form' }) do |f| %>
+      
+      <div class="flash">
+        <%= devise_error_messages! %>
+      </div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+      
+      <div class="group">
+        <% if resource.winner_id == 0 and ! resource.errors.any? -%>
+          <%= f.label :winner_id, t(:winner_id, :default=>'Siegermannschaft'), :class => :label %>
+          <%= f.collection_select :winner_id, Team.all, :id, :name, :class => 'select_field', :disabled=> resource.winner_id == 0 ? 'false' : 'disabled' %><br>
+          <span class="description">Achtung! Ein Tipp auf den Sieger kann nur einmal gemacht und dann nicht mehr geändert werden!</span>
+        <% else -%>
+          <%= f.label :winner_id, t(:winner_id, :default=>'Deine Siegermannschaft'), :class => :label %>
+          <%= image_tag resource.winner + '.png', :style=>'border: 1px solid black' %><br>
+        <% end -%>
+      </div>
+      
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+      <div class="group">
+        <%= f.label :email, :class => :label %>
+        <%= f.email_field :email, :class => 'text_field' %>
+      </div>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></div>
+      <div class="group">
+        <%= f.label :password, :class => :label %>
+        <%= f.password_field :password, :class => 'text_field' %>
+        <span class="description">Leer lassen wenn es nicht geändert werden soll!</span>
+      </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+      <div class="group">
+        <%= f.label :password_confirmation, t(:password_confirmation, :default=>'Passwortänderung bestätigen'), :class => :label %>
+        <%= f.password_field :password_confirmation, :class => 'text_field' %>
+        <span class="description">Leer lassen wenn es nicht geändert werden soll!</span>
+      </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+      <div class="group">
+        <%= f.label :current_password, t(:current_password, :default=>'Aktuelles Passwort'), :class => :label %>
+        <%= f.password_field :current_password, :class => 'text_field' %>
+        <span class="description">Muss eingegeben werden um hier Änderungen zu bestätigen</span>
+      </div>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+      <div class="group navform wat-cf">
+        <button class="button" type="submit">
+          <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Speichern")}") %> <%= t("web-app-theme.save", :default => "Speichern") %>
+        </button>
+        <span class="text_button_padding"><%= t("web-app-theme.or", :default => "oder") %></span>
+        <%= link_to t("web-app-theme.cancel", :default => "Zurück"), :back, :class => "text_button_padding link_button" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

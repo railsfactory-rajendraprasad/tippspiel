@@ -12,8 +12,8 @@
       <h1><a href="/"><%= t(:headline)%></a></h1>
       <div id="user-navigation">
         <ul class="wat-cf">
-          <li style='color: white'>angemeldet als: <%= current_user.name %></li>
-          <li><%= link_to(t("web-app-theme.settings", :default => "Settings"), edit_user_registration_path) %></a></li>
+          <li style='color: white'>angemeldet als: <%= nameify(current_user.name) %></li>
+          <li><%= link_to(t("web-app-theme.settings", :default => "Settings"), edit_user_registration_path) %></li>
           <li><%= link_to(t("web-app-theme.logout", :default => "Logout"), destroy_user_session_path, :method=>:delete, :class=>'logout') %></li>
         </ul>
       </div>
@@ -29,7 +29,7 @@
           </div>
         <% end -%>
       </div>
-      <div id="main">
+      <div id="main" <%= "class='monster'" if controller.controller_name == 'tipps' %>>
         <%= yield %>
         <div id="footer">
           <div class="block">
@@ -37,19 +37,23 @@
           </div>
         </div>
       </div>
+      <% if controller.controller_name != 'tipps'  -%>
       <div id="sidebar">
         <%= yield :sidebar %>
         <div class="block">
-	  <h3>Links</h3>
-	    <ul class="navigation">
-	    <li><%= link_to(t('links.spielplan'), spiels_path) %></li>
-	    <li><%= link_to(t('links.tipps'), tipps_path) %></li>
-      <li><%= link_to(t('links.score'), scores_path) %></li>
-	    <li><%= link_to(t('links.teams'), teams_path) %></li>
-	  </ul>
-	</div>
+          <h3>Links</h3>
+            <br>
+            <center><%= image_tag 'Logo.png' %></center>
+            <ul class="navigation">
+            <li><%= link_to(t('links.spielplan'), spiels_path) %></li>
+            <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+            <li><%= link_to(t('links.score'), scores_path) %></li>
+            <li><%= link_to(t('links.teams'), teams_path) %></li>
+          </ul>
+        </div>
       </div>
     </div>
+    <% end -%>
   </div>
 </body>
 </html>

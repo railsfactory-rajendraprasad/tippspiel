@@ -1,16 +1,46 @@
-<h2>Change your password</h2>
+<div class='block'>
+  <h2><%= t('devise.change_password') %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+  <div class='content login'>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class=>'form login' }) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <div class='flash'>
+        <%= devise_error_messages! %>
+      </div>    
+    
+      <div class="group wat-cf">
+        <div class="left">
+          <%= f.label :password, :class=>'label' %>
+        </div>
+        <div class="right">
+          <%= f.password_field :password %>
+        </div>
+      </div>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password %></div>
+      <div class="group wat-cf">
+        <div class="left">
+          <%= f.label :password_confirmation, :class=>'label' %>
+        </div>
+        <div class="right">
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
+      <div class="group wat-cf">
+        <div class='right'>
+          <%= button_tag t("links.change", :default=>'Bestätigen'), :type=>'submit', :class=>'button' %>
+        </div>
+      </div>
 
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
+      <div class="group wat-cf">
+        <div class='left'>
+          <%= link_to 'Startseite', root_path, :class=>'button' %>          
+        </div>
 
-<%= render "links" %>
+        <div class='right'>
+          <p>Wer sein Passwort noch kennt drückt bitte nebenstehenden Knopf.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

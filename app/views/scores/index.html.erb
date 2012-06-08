@@ -1,8 +1,16 @@
 <div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li class="active"><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
+    </ul>
+  </div>          
   <div class="content">
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Punkte</h2>
     <div class="inner">
-      <table class="table">
+      <table class="table pokal">
         <tr>
           <th class="first"><%= t('activerecord.attributes.score.rank') %></th>
           <th><%= t("activerecord.attributes.score.user_id") %></th>
@@ -11,7 +19,7 @@
         <% @scores.each_with_index do |score,rank| -%>
         <tr class="<%= cycle("odd", "even") %>">
           <td><%= rank+1 %></td>
-          <td><%= score.user.name %></td>
+          <td><%= image_tag(score.user.winner + '.png', :style=>'border: 1px solid black; height: 25px') %> <%= score.user ? nameify(score.user.name) : score.user_id.to_s + ' gelöscht' %></td>
           <td><%= score.total %></td>
         </tr>
         <% end -%>
@@ -19,7 +27,6 @@
       <div class="actions-bar wat-cf">
         <div class="actions">
         </div>
-        
       </div>
     </div>
   </div>

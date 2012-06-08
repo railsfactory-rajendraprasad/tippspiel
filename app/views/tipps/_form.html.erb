@@ -1,13 +1,19 @@
+<% if @tipp.errors.any? -%>
+<div class="flash">
+  <div class="message error">
+    <% @tipp.errors.each do |type,msg| -%><p><%= msg %></p><% end %>
+  </div>
+</div>
+<% end -%>
 <div class='columns wat-cf'>
   <div class='columns left'>
     <div class='group'>
       <%= f.label @tipp.spiel.team_a, :class=>'label' %>
-      <%= image_tag @tipp.spiel.team_a + '.png' %>
+      <%= image_tag @tipp.spiel.team_a + '.png', :style=>'border: 1px solid black' %>
       <%= f.hidden_field :spiel_id %>
     </div>
     
     <div class="group">
-      <%= f.label :team_a_result, t("activerecord.attributes.tipp.team_a_result", :default => "Team a result"), :class => :label %>
       <%= f.number_field :team_a_result, :class => 'number_field', :size=>4 %>
     </div>
   </div>
@@ -15,11 +21,11 @@
   <div class='columns right'>
     <div class='group'>
       <%= f.label @tipp.spiel.team_b, :class=>'label' %>
-      <%= image_tag @tipp.spiel.team_b + '.png' %>
+      <%= image_tag @tipp.spiel.team_b + '.png', :style=>'border: 1px solid black' %>
+      <%= f.hidden_field :user_id %>
     </div>
     
     <div class='group'>
-      <%= f.label :team_b_result, t("activerecord.attributes.tipp.team_b_result", :default => "Team b result"), :class => :label %>
       <%= f.number_field :team_b_result, :class => 'number_field', :size=>4 %>
     </div>
   </div>
