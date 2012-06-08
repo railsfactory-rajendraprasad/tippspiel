@@ -20,13 +20,12 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer'
-
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'web-app-theme', :git=>'https://github.com/pilu/web-app-theme.git' # 'https://github.com/pilu/web-app-theme.git'
 group :development, :test do
   gem 'webrat'
-  gem 'web-app-theme', :git=>'https://github.com/pilu/web-app-theme.git' # 'https://github.com/pilu/web-app-theme.git'
 end
 
 gem 'prawn'
