@@ -19,3 +19,11 @@ div.block {
 .table.pokal {
   background: url('Pokal.png') no-repeat center;
 }
+
+td#gold {
+  background: #FAA;
+}
+
+td#gold {
+  background: #FFA;
+}

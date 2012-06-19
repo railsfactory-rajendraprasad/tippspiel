@@ -22,13 +22,13 @@
     <h4>Abgegebene Tipps</h2>
       <table class='table'>
         <tr><th class='first'>Spieler</th><th class='last'>Tipp</th></tr>
-        <% @spiel.tipps.each do |blk| %>
+        <% @spiel.tipps.where('user_id != 1').each do |blk| %>
           <tr <%= "style='background-color: lightblue'" if blk.user_id == current_user.id %>><td><%= blk.user ? nameify(blk.user.name) : "gelöschte Person (##{blk.user_id})" %></td><td><%= blk.small %></td></tr>
         <% end %>
       </table>
 
       <div class="wat-cf">
-        <%= link_to_new_or_edit_tipp(current_user.id, @spiel.id) %> 
+        <%= @spiel.start_at > (Time.now + (3600 * 2)).utc ? link_to_new_or_edit_tipp(current_user.id, @spiel.id) : link_to('Zu spät', "http://www.rippenspreizer.de/4images/data/media/95/Zu_spaet.jpg", :class=>'button') %>
       <% if current_user.is_superuser? %>
         <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_spiel_path(@spiel), :class => "button" %> 
         <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), spiel_path(@spiel), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>

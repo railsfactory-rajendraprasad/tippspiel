@@ -21,7 +21,7 @@
         </tr>
         <% @spiels.each do |spiel| -%>
         <tr class="<%= cycle("odd", "even") %>">
-          <td><%= spiel.start_at > (Time.now + (3600 * 2)).utc ? link_to_new_or_edit_tipp(current_user.id, spiel.id) : 'Zu spät' %></td>
+          <td><%= spiel.start_at > (Time.now + (3600 * 2)).utc ? link_to_new_or_edit_tipp(current_user.id, spiel.id) : link_to('Zu spät', "http://www.rippenspreizer.de/4images/data/media/95/Zu_spaet.jpg", :class=>'button') %></td>
           <td><%= link_to((spiel.result.empty? ? l(spiel.start_at) : spiel.result), spiel_path(spiel)) %></td>
           <td><%= image_tag spiel.team_a + '.png', :style=>'border: 1px solid black' %></td>
           <td><b><%= link_to spiel.versus, spiel_path(spiel) %></b></td>

@@ -3,13 +3,13 @@
   <div class="content">
     <p><b>Beste TeilnehmerINNEN:</b></br>
       </br>
-      <% Score.select('user_id, SUM(score) AS total').group('user_id').order('total').limit(3).each do |score| -%>
-        <i><%= score.user.name %></i> <%= score.total %> Pkt.</br>
+      <% Score.select('user_id, SUM(score) AS total').group('user_id').order('total DESC, user_id').limit(5).each do |score| -%>
+        <i><%= nameify(score.user.name) %></i> <%= score.total %> Pkt.</br>
       <% end -%>
     </p>
     <p>Es nehmen momentan <%= User.count %>  Spieler teil.</p>
     <p>Insgesamt wurden <%= Tipp.count %> Tipps abgegeben.</p>
-    <p><b>Goldrichtige Tipps:</b> 0</p>
-    <p><b>Richtige Tipps:</b> 0</p>
+    <p><b>Goldrichtige Tipps:</b> <%= Score.where('score = 3').count %></p>
+    <p><b>Richtige Tipps:</b> <%= Score.where('score = 1').count %></p>
   </div>
 </div>

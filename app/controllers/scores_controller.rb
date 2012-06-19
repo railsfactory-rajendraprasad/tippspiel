@@ -2,7 +2,8 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.select('user_id, SUM(score) AS total').group('user_id').order('total, user_id')
+#     @scores = Score.select('user_id, SUM(score) AS total').group('user_id').order('total DESC, user_id')
+    @scores = Score.joins('JOIN users u ON u.id = user_id').joins('JOIN teams t ON t.id = u.winner_id').select('user_id, u.name, t.name AS winner, SUM(score) AS total').group('user_id, u.name, t.name').order('total DESC, u.name')
 
     respond_to do |format|
       format.html # index.html.erb

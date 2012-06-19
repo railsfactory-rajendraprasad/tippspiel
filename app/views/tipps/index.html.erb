@@ -23,12 +23,19 @@
           <% line = {}; @tipps.where('spiel_id = ?', spiel.id).all.each do |ele| line[ele.user_id] = ele end -%>
           <% User.where('is_superuser IS FALSE').order('name').all.each do |usr| -%>
             <% txt = (line[usr.id] ? line[usr.id].extra_small : '-:-') -%>
-            <td><%= (current_user.is_superuser? or current_user.can_activate) ? link_to_new_or_edit_tipp(usr.id, spiel.id,'-:-',true)  : txt%></td>
+            <% html_id = spiel.good_choice?(txt)  -%>
+            <td <%= "id='#{html_id}'" if html_id %>><%= (current_user.is_superuser? or current_user.can_activate) ? link_to_new_or_edit_tipp(usr.id, spiel.id,'-:-',true)  : txt%></td>
           <% end -%>
           <td><%= link_to spiel.versus, spiel_path(spiel) %></td>
           <td class="last"></td>
           </tr>          
         <% end -%>
+        <tr>             
+          <th>Spiel</th>
+          <% User.where('is_superuser IS FALSE').order('name').all.each do |usr| %><th><span class="rotate"><small><%= nameify(usr.name) %></small></th><% end -%>
+          <th>Spiel</th>
+          <th></th>
+        </tr>
       </table>
     </div>
   </div>

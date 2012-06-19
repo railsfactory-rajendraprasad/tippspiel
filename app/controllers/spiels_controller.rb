@@ -2,7 +2,7 @@ class SpielsController < ApplicationController
   # GET /spiels
   # GET /spiels.json
   def index
-    @spiels = Spiel.all
+    @spiels = Spiel.all # .where("(start_at + interval '24hours') > now()").all
 
     respond_to do |format|
       format.html # index.html.erb

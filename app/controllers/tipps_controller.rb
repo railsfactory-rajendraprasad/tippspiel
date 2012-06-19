@@ -60,7 +60,8 @@ class TippsController < ApplicationController
   # PUT /tipps/1.json
   def update
     @tipp = Tipp.find(params[:id])
-    deny_access! unless current_user.id == @tipp.user_id and ! current_user.is_superuser?
+    deny_access!('Zugriff verweigert! Es ist verboten die Tipps anderer Spieler zu manipulieren!') if ! current_user.id == @tipp.user_id and ! current_user.is_superuser?
+    # deny_access! unless current_user.id == @tipp.user_id and ! current_user.is_superuser?
     
     respond_to do |format|
       if ! @tipp.too_late? && @tipp.update_attributes(params[:tipp])

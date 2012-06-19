@@ -14,14 +14,21 @@
         <tr>
           <th class="first"><%= t('activerecord.attributes.score.rank') %></th>
           <th><%= t("activerecord.attributes.score.user_id") %></th>
+          <th>3er Tipps</th>
+          <th>1er Tipps</th>
           <th class="last"><%= t('activerecord.attributes.score.score') %></th>
-        </tr>
+        </tr> 
+        <% last_score = 0; real_rank = 0 -%>
         <% @scores.each_with_index do |score,rank| -%>
+        <% real_rank = score.total == last_score ? real_rank : rank -%>
         <tr class="<%= cycle("odd", "even") %>">
-          <td><%= rank+1 %></td>
-          <td><%= image_tag(score.user.winner + '.png', :style=>'border: 1px solid black; height: 25px') %> <%= score.user ? nameify(score.user.name) : score.user_id.to_s + ' gelöscht' %></td>
-          <td><%= score.total %></td>
+          <td><b><%= real_rank+1 %></b></td>
+          <td><%= image_tag(score.winner + '.png', :style=>'border: 1px solid black; height: 25px') %> <%= nameify(score.name) %></td>
+          <td><i><%= Score.where(:score => 3).where(:user_id=>score.user_id).count %></i></td>
+          <td><i><%= Score.where(:score => 1).where(:user_id=>score.user_id).count %></i></td>
+          <td><b><%= score.total %></b></td>
         </tr>
+        <% last_score = score.total -%>
         <% end -%>
       </table>
       <div class="actions-bar wat-cf">

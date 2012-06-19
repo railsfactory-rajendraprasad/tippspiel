@@ -20,6 +20,21 @@ class Spiel < ActiveRecord::Base
     (Time.now >= self.start_at) ? 'Keine Tippabgabe mehr möglich' : format("Spielstart ist am %s",self.start_at.strftime("%d.%m.%Y um %H:%M Uhr"))
   end
   
+  def good_choice?(tipp)
+    return nil if result.nil? or result.empty?
+    tmp = nil 
+    
+    if tipp == result
+      tmp = 'gold' 
+    else
+      a = Score.parse(tipp)
+      b = Score.parse(self.result)
+      tmp = 'silver' if (a.a_win && b.a_win) or (a.b_win && b.b_win) or (a.patt && b.patt )
+    end
+    
+    tmp
+  end
+  
   def average
     tg = self.tipps.count
     ta = self.tipps.sum('team_a_result')
