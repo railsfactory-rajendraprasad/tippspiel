@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120529073221) do
+ActiveRecord::Schema.define(:version => 20120607092400) do
 
   create_table "scores", :force => true do |t|
     t.integer  "spiel_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20120529073221) do
     t.boolean  "can_activate",           :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.integer  "winner_id",              :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
