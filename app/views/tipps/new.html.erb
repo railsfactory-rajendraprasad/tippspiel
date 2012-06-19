@@ -1,14 +1,16 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", tipps_path  %></li>
-      <li class="active"><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_tipp_path %></li>
+      <li class="first"><%= link_to(t('links.spielplan'), spiels_path) %></li>
+      <li><%= link_to(t('links.tipps'), tipps_path) %></li>
+      <li><%= link_to(t('links.score'), scores_path) %></li>
+      <li><%= link_to(t('links.teams'), teams_path) %></li>
     </ul>
   </div>          
   <div class="content">            
-    <h2 class="title"><%= t("web-app-theme.new", :default => "New")%>  Tipp</h2>
+    <h2 class="title">Dein  Tipp</h2>
     <div class="inner">
-      <%= form_for :tipp, :url => tipps_path, :html => { :class => :form } do |f| -%>
+      <%= form_for @tipp, :url => tipps_path, :html => { :class => :form } do |f| -%>
         <%= render :partial => "form", :locals => {:f => f} %>
       <% end -%>
     </div>

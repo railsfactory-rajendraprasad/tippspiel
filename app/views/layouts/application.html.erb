@@ -29,7 +29,7 @@
           </div>
         <% end -%>
       </div>
-      <div id="main" <%= "class='monster'" if controller.controller_name == 'tipps' %>>
+      <div id="main" <%= "class='monster'" if controller.controller_name == 'tipps' and controller.action_name == 'index' %>>
         <%= yield %>
         <div id="footer">
           <div class="block">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <% if controller.controller_name != 'tipps'  -%>
+      <% unless (controller.controller_name == 'tipps'  and controller.action_name == 'index') -%>
       <div id="sidebar">
         <%= yield :sidebar %>
         <div class="block">

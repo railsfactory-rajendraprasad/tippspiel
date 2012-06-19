@@ -44,9 +44,10 @@ class TippsController < ApplicationController
   def create
     @tipp = Tipp.new(params[:tipp])
     @tipp.user_id||= current_user.id
+    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko
 
     respond_to do |format|
-      if ! @tipp.too_late? && @tipp.save
+      if ! @tipp.too_late? && @tipp.errors.empty? && @tipp.save
         format.html { redirect_to @tipp.spiel, notice: 'Tipp was successfully created.' }
         format.json { render json: @tipp, status: :created, location: @tipp }
       else
@@ -61,10 +62,11 @@ class TippsController < ApplicationController
   def update
     @tipp = Tipp.find(params[:id])
     deny_access!('Zugriff verweigert! Es ist verboten die Tipps anderer Spieler zu manipulieren!') if ! current_user.id == @tipp.user_id and ! current_user.is_superuser?
+    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko
     # deny_access! unless current_user.id == @tipp.user_id and ! current_user.is_superuser?
     
     respond_to do |format|
-      if ! @tipp.too_late? && @tipp.update_attributes(params[:tipp])
+      if ! @tipp.too_late? && @tipp.errors.empty? && @tipp.update_attributes(params[:tipp])
         format.html { redirect_to @tipp.spiel, notice: 'Tipp was successfully updated.' }
         format.json { head :no_content }
       else

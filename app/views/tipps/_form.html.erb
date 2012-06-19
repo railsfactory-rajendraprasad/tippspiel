@@ -5,6 +5,18 @@
   </div>
 </div>
 <% end -%>
+
+<div class="inner">
+
+<% if @tipp.spiel.ko %>
+  <div class='flash'>
+    <div class="message warning"><br>
+      Achtung! Dies ist ein KO Spiel. Man kann nicht auf unentschieden Tippen. Gewertet wird der <b>absolute Endstand</b> des Spiels (nach dem Elfmeterschießen)<br>
+    <br>
+    </div>
+  </div>
+<% end -%>
+
 <div class='columns wat-cf'>
   <div class='columns left'>
     <div class='group'>
@@ -37,4 +49,5 @@
   </button>
   <span class="text_button_padding"><%= t("web-app-theme.or", :default => "or") %></span>
 	<%= link_to t("web-app-theme.cancel", :default => "Cancel"), tipps_path, :class => "text_button_padding link_button" %>
+</div>
 </div>
