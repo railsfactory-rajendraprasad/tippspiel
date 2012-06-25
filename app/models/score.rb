@@ -26,6 +26,9 @@ class Score < ActiveRecord::Base
         # Treffer gibt 3 Punkte
         if tipp.team_a_result == blk.a && tipp.team_b_result == blk.b
           val.score = 3
+        # richtige Tordifferenz 2 Punkte
+        elsif (tipp.team_a_result - tipp.team_b_result) == (blk.a - blk.b)
+          val.score = 2
         # richtiger Ausgang gibt 1 Punkt
         elsif tipp.team_a_win? && blk.a_win or tipp.team_b_win? && blk.b_win or blk.patt && tipp.patt?
           val.score = 1
