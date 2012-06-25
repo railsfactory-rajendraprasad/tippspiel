@@ -44,7 +44,7 @@ class TippsController < ApplicationController
   def create
     @tipp = Tipp.new(params[:tipp])
     @tipp.user_id||= current_user.id
-    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko
+    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko && @tipp.team_a_result == @tipp.team_b_result
 
     respond_to do |format|
       if ! @tipp.too_late? && @tipp.errors.empty? && @tipp.save
@@ -62,7 +62,7 @@ class TippsController < ApplicationController
   def update
     @tipp = Tipp.find(params[:id])
     deny_access!('Zugriff verweigert! Es ist verboten die Tipps anderer Spieler zu manipulieren!') if ! current_user.id == @tipp.user_id and ! current_user.is_superuser?
-    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko
+    @tipp.errors.add(:base, 'Bei einem KO Spiel kann nicht auf unentschieden getippt werden!') if @tipp.spiel.ko && @tipp.team_a_result == @tipp.team_b_result
     # deny_access! unless current_user.id == @tipp.user_id and ! current_user.is_superuser?
     
     respond_to do |format|
