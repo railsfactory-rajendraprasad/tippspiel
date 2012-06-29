@@ -23,7 +23,7 @@
         <% real_rank = score.total == last_score ? real_rank : rank -%>
         <tr class="<%= cycle("odd", "even") %>">
           <td><b><%= real_rank+1 %></b></td>
-          <td><%= image_tag(score.winner + '.png', :style=>'border: 1px solid black; height: 25px') %> <%= nameify(score.name) %></td>
+          <td><%= image_tag(score.winner + '.png', :style=>'border: 1px solid black; height: 25px') %><%= image_tag('raus.png', :style=>'height: 31px; z-index: 2; margin-left: -35px;margin-top:-2px; position: absolute') if score.loser == 't' %> <%= nameify(score.name) %></td>
           <td><i><%= Score.where(:score => 3).where(:user_id=>score.user_id).count %></i></td>
           <td><i><%= Score.where(:score => 1).where(:user_id=>score.user_id).count %></i></td>
           <td><b><%= score.total %></b></td>

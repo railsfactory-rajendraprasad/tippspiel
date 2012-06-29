@@ -23,7 +23,7 @@
         <tr class="<%= cycle("odd", "even") %>">
           <td><%= team.id %></td>
           <td><%= link_to team.name, team_path(team) %></td>
-          <td><%= image_tag team.name + '.png', :style=>'border: 1px solid black' %></td>
+          <td><%= image_tag team.name + '.png', :style=>'border: 1px solid black;' %><%= image_tag('raus.png', :style=>'z-index: 2; margin-left: -75px;margin-top:-10px; position: absolute') if team.loser %></td>
           <td><%= User.where('winner_id = ?', team.id).count %></td>
           <td class="last">
             <% if current_user.is_superuser? -%>
